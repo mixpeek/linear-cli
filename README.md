@@ -2,7 +2,7 @@ WIP
 
 # Linear CLI
 
-A modern, user-friendly CLI client for Linear built with TypeScript. This CLI provides an improved developer experience for interacting with Linear's API.
+A modern, user-friendly CLI client for [Linear](https://linear.app/) built with TypeScript. This CLI provides an improved developer experience for interacting with Linear's API.
 
 ## Features
 
@@ -25,6 +25,15 @@ A modern, user-friendly CLI client for Linear built with TypeScript. This CLI pr
 npm install -g linear-cli
 # or
 yarn global add linear-cli
+```
+
+## Setup
+
+To use, you must set up a 'Personal API Key' in your Linear account, here: https://linear.app/mixpeek/settings/account/security
+
+```bash
+# Initialize the CLI with an API key
+linear-cli init
 ```
 
 ## Usage
@@ -90,4 +99,4 @@ yarn link
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License. 

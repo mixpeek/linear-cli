@@ -1,6 +1,6 @@
 {
   "name": "@mixpeek/linear-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A CLI tool for Linear",
   "type": "module",
   "main": "dist/index.js",

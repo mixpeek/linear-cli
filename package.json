@@ -1,11 +1,14 @@
 {
-  "name": "linear-cli",
+  "name": "@mixpeek/linear-cli",
   "version": "0.1.0",
   "description": "A CLI tool for Linear",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "linear-cli": "./dist/index.js"
+    "linear-cli": "dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "files": [
     "dist",

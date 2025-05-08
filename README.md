@@ -1,8 +1,14 @@
+![npm](https://img.shields.io/npm/v/@mixpeek/linear-cli)
+![downloads](https://img.shields.io/npm/dm/@mixpeek/linear-cli)
+![node](https://img.shields.io/node/v/@mixpeek/linear-cli)
+
 WIP
 
 # Linear CLI
 
-A modern, user-friendly CLI client for [Linear](https://linear.app/) built with TypeScript. This CLI provides an improved developer experience for interacting with Linear's API.
+A modern, user-friendly CLI client for [Linear](https://linear.app/) built with TypeScript. Uses Linear's [Typescript SDK](https://github.com/linear/linear/tree/master/packages/sdk). This CLI provides an improved developer experience for interacting with Linear's API.
+
+![Screenshot of @mixpeek/linear-cli running the 'issues list' command](./assets/screenshot.png)
 
 ## Features
 
@@ -10,7 +16,6 @@ A modern, user-friendly CLI client for [Linear](https://linear.app/) built with 
 - Interactive CLI with beautiful UI using Ink
 - Linear API support via @linear/sdk
 - Type-safe command handling
-- Comprehensive test coverage
 - Modern development tooling
 
 ## Prerequisites
@@ -22,9 +27,9 @@ A modern, user-friendly CLI client for [Linear](https://linear.app/) built with 
 ## Installation
 
 ```bash
-npm install -g linear-cli
+npm install -g @mixpeek/linear-cli
 # or
-yarn global add linear-cli
+yarn global add @mixpeek/linear-cli
 ```
 
 ## Setup
@@ -42,7 +47,7 @@ linear-cli init
 # List all issues
 linear-cli issues list
 
-# Create a new issue
+# Create a new issue interactively
 linear-cli issues create -i 
 
 # View issue details

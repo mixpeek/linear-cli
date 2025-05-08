@@ -43,7 +43,7 @@ linear-cli init
 linear-cli issues list
 
 # Create a new issue
-linear-cli iisue create "Fix login bug" --description "Users unable to login on mobile"
+linear-cli issues create -i 
 
 # View issue details
 linear-cli issues view ISSUE-123

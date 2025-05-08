@@ -15,12 +15,7 @@ type ViewMode = 'list' | 'details' | 'edit';
 export const IssueNavigator: React.FC<IssueNavigatorProps> = ({ initialIssues }) => {
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [sortedIssues, setSortedIssues] = useState<Issue[]>([]);
-  const { 
-    issues,
-    currentIssue,
-    setIssues,
-    setCurrentIssue
-  } = useIssueStore();
+  const { issues, currentIssue, setIssues, setCurrentIssue } = useIssueStore();
 
   // Initialize issues when the app starts
   React.useEffect(() => {
@@ -35,18 +30,18 @@ export const IssueNavigator: React.FC<IssueNavigatorProps> = ({ initialIssues })
       }
 
       if (key.upArrow || key.downArrow) {
-        const currentIndex = sortedIssues.findIndex(issue => 
-          issue.identifier === (currentIssue?.identifier || sortedIssues[0]?.identifier)
+        const currentIndex = sortedIssues.findIndex(
+          (issue) => issue.identifier === (currentIssue?.identifier || sortedIssues[0]?.identifier)
         );
         let newIndex = currentIndex;
-        
+
         if (key.upArrow && currentIndex > 0) {
           newIndex = currentIndex - 1;
         }
         if (key.downArrow && currentIndex < sortedIssues.length - 1) {
           newIndex = currentIndex + 1;
         }
-        
+
         setCurrentIssue(sortedIssues[newIndex]);
       }
 
@@ -86,7 +81,7 @@ export const IssueNavigator: React.FC<IssueNavigatorProps> = ({ initialIssues })
       ) : viewMode === 'edit' ? (
         <EditIssue
           issue={currentIssue!}
-          onBack={() => setViewMode('list')}
+          onBack={() => setViewMode('details')}
           onUpdate={handleIssueUpdate}
         />
       ) : (
@@ -99,4 +94,4 @@ export const IssueNavigator: React.FC<IssueNavigatorProps> = ({ initialIssues })
       )}
     </Box>
   );
-}; 
+};

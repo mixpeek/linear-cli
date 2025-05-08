@@ -74,6 +74,12 @@ const CreateIssueCommand = new Command('create')
   .option('--csv <file>', 'Create issues from CSV file')
   .option('-o, --output <file>', 'Output results to CSV file (defaults to stdout)')
   .action(async (options: CreateIssueOptions) => {
+    // Display help if no required options are provided
+    if (!options.title && !options.interactive && !options.csv) {
+      CreateIssueCommand.help();
+      return;
+    }
+    
     try {
       const client = getLinearClient();
       const defaults = await getDefaultValues();
@@ -251,9 +257,10 @@ const CreateIssueCommand = new Command('create')
 
         // Team selection
         console.log('\nAvailable teams:');
-        console.log(`${teamId}. ${selectedTeam.name}`);
+        console.log(`${selectedTeam.id}. ${selectedTeam.name}`);
 
         // Create the issue with IDs
+        console.log('\nCreating issue...');
         const issueResponse = await client.createIssue({
           title: issueData.title!,
           description: issueData.description,
@@ -262,10 +269,10 @@ const CreateIssueCommand = new Command('create')
             defaultState.id,
           assigneeId: selectedUser?.id,
           projectId: selectedProject?.id,
-          teamId: teamId,
+          teamId: selectedTeam.id,
         });
 
-        if (!issueResponse.success) {
+        if (!issueResponse.success || !issueResponse.issue) {
           throw new Error('Failed to create issue');
         }
 
@@ -277,8 +284,13 @@ const CreateIssueCommand = new Command('create')
           team: selectedTeam.name,
         });
 
-        // Fetch the complete issue data
-        const fullIssue = await client.issue(issueResponse.issue);
+        console.log('\nFetching issue details...');
+        // Fetch the complete issue data using the issue ID from the response
+        const fullIssue = await issueResponse.issue;
+        if (!fullIssue) {
+          throw new Error('Failed to fetch created issue');
+        }
+
         const state = await fullIssue.state;
         const assignee = await fullIssue.assignee;
         const project = await fullIssue.project;
@@ -299,6 +311,11 @@ const CreateIssueCommand = new Command('create')
           url: fullIssue.url,
         } as Issue;
 
+        // Display success message with issue details
+        console.log('\n✅ Issue created successfully!');
+        console.log(`\nIssue: ${issueWithData.identifier}`);
+        console.log(`URL: ${issueWithData.url}\n`);
+
         // Display the created issue
         render(<IssueDetails 
           issue={issueWithData} 
@@ -311,6 +328,13 @@ const CreateIssueCommand = new Command('create')
           ...defaults,
           ...options
         };
+
+        // Ensure title is provided
+        if (!issueData.title) {
+          console.error('Error: Title is required when creating an issue');
+          CreateIssueCommand.help();
+          process.exit(1);
+        }
 
         // Create the issue
         const teamId = issueData.team ? 
